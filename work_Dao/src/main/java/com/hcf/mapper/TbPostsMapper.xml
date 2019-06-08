@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcf.mapper.TbPostsMapper" >
+  <resultMap id="BaseResultMap" type="com.hcf.pojo.TbPosts" >
+    <id column="postId" property="postid" jdbcType="INTEGER" />
+    <result column="postUser" property="postuser" jdbcType="VARCHAR" />
+    <result column="postTitle" property="posttitle" jdbcType="VARCHAR" />
+    <result column="postContext" property="postcontext" jdbcType="VARCHAR" />
+    <result column="postType" property="posttype" jdbcType="VARCHAR" />
+    <result column="postPic" property="postpic" jdbcType="VARCHAR" />
+    <result column="postTime" property="posttime" jdbcType="TIMESTAMP" />
+    <result column="postStatus" property="poststatus" jdbcType="INTEGER" />
+    <result column="postScan" property="postscan" jdbcType="INTEGER" />
+    <result column="postthumb" property="postthumb" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    postId, postUser, postTitle, postContext, postType, postPic, postTime, postStatus, 
+    postScan, postthumb
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hcf.pojo.TbPostsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_posts
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_posts
+    where postId = #{postid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_posts
+    where postId = #{postid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hcf.pojo.TbPostsExample" >
+    delete from tb_posts
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hcf.pojo.TbPosts" >
+    insert into tb_posts (postId, postUser, postTitle, 
+      postContext, postType, postPic, 
+      postTime, postStatus, postScan, 
+      postthumb)
+    values (#{postid,jdbcType=INTEGER}, #{postuser,jdbcType=VARCHAR}, #{posttitle,jdbcType=VARCHAR}, 
+      #{postcontext,jdbcType=VARCHAR}, #{posttype,jdbcType=VARCHAR}, #{postpic,jdbcType=VARCHAR}, 
+      #{posttime,jdbcType=TIMESTAMP}, #{poststatus,jdbcType=INTEGER}, #{postscan,jdbcType=INTEGER}, 
+      #{postthumb,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcf.pojo.TbPosts" >
+    insert into tb_posts
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="postid != null" >
+        postId,
+      </if>
+      <if test="postuser != null" >
+        postUser,
+      </if>
+      <if test="posttitle != null" >
+        postTitle,
+      </if>
+      <if test="postcontext != null" >
+        postContext,
+      </if>
+      <if test="posttype != null" >
+        postType,
+      </if>
+      <if test="postpic != null" >
+        postPic,
+      </if>
+      <if test="posttime != null" >
+        postTime,
+      </if>
+      <if test="poststatus != null" >
+        postStatus,
+      </if>
+      <if test="postscan != null" >
+        postScan,
+      </if>
+      <if test="postthumb != null" >
+        postthumb,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="postid != null" >
+        #{postid,jdbcType=INTEGER},
+      </if>
+      <if test="postuser != null" >
+        #{postuser,jdbcType=VARCHAR},
+      </if>
+      <if test="posttitle != null" >
+        #{posttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="postcontext != null" >
+        #{postcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="posttype != null" >
+        #{posttype,jdbcType=VARCHAR},
+      </if>
+      <if test="postpic != null" >
+        #{postpic,jdbcType=VARCHAR},
+      </if>
+      <if test="posttime != null" >
+        #{posttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="poststatus != null" >
+        #{poststatus,jdbcType=INTEGER},
+      </if>
+      <if test="postscan != null" >
+        #{postscan,jdbcType=INTEGER},
+      </if>
+      <if test="postthumb != null" >
+        #{postthumb,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hcf.pojo.TbPostsExample" resultType="java.lang.Integer" >
+    select count(*) from tb_posts
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_posts
+    <set >
+      <if test="record.postid != null" >
+        postId = #{record.postid,jdbcType=INTEGER},
+      </if>
+      <if test="record.postuser != null" >
+        postUser = #{record.postuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posttitle != null" >
+        postTitle = #{record.posttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcontext != null" >
+        postContext = #{record.postcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posttype != null" >
+        postType = #{record.posttype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postpic != null" >
+        postPic = #{record.postpic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posttime != null" >
+        postTime = #{record.posttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.poststatus != null" >
+        postStatus = #{record.poststatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.postscan != null" >
+        postScan = #{record.postscan,jdbcType=INTEGER},
+      </if>
+      <if test="record.postthumb != null" >
+        postthumb = #{record.postthumb,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_posts
+    set postId = #{record.postid,jdbcType=INTEGER},
+      postUser = #{record.postuser,jdbcType=VARCHAR},
+      postTitle = #{record.posttitle,jdbcType=VARCHAR},
+      postContext = #{record.postcontext,jdbcType=VARCHAR},
+      postType = #{record.posttype,jdbcType=VARCHAR},
+      postPic = #{record.postpic,jdbcType=VARCHAR},
+      postTime = #{record.posttime,jdbcType=TIMESTAMP},
+      postStatus = #{record.poststatus,jdbcType=INTEGER},
+      postScan = #{record.postscan,jdbcType=INTEGER},
+      postthumb = #{record.postthumb,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcf.pojo.TbPosts" >
+    update tb_posts
+    <set >
+      <if test="postuser != null" >
+        postUser = #{postuser,jdbcType=VARCHAR},
+      </if>
+      <if test="posttitle != null" >
+        postTitle = #{posttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="postcontext != null" >
+        postContext = #{postcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="posttype != null" >
+        postType = #{posttype,jdbcType=VARCHAR},
+      </if>
+      <if test="postpic != null" >
+        postPic = #{postpic,jdbcType=VARCHAR},
+      </if>
+      <if test="posttime != null" >
+        postTime = #{posttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="poststatus != null" >
+        postStatus = #{poststatus,jdbcType=INTEGER},
+      </if>
+      <if test="postscan != null" >
+        postScan = #{postscan,jdbcType=INTEGER},
+      </if>
+      <if test="postthumb != null" >
+        postthumb = #{postthumb,jdbcType=INTEGER},
+      </if>
+    </set>
+    where postId = #{postid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcf.pojo.TbPosts" >
+    update tb_posts
+    set postUser = #{postuser,jdbcType=VARCHAR},
+      postTitle = #{posttitle,jdbcType=VARCHAR},
+      postContext = #{postcontext,jdbcType=VARCHAR},
+      postType = #{posttype,jdbcType=VARCHAR},
+      postPic = #{postpic,jdbcType=VARCHAR},
+      postTime = #{posttime,jdbcType=TIMESTAMP},
+      postStatus = #{poststatus,jdbcType=INTEGER},
+      postScan = #{postscan,jdbcType=INTEGER},
+      postthumb = #{postthumb,jdbcType=INTEGER}
+    where postId = #{postid,jdbcType=INTEGER}
+  </update>
+</mapper>

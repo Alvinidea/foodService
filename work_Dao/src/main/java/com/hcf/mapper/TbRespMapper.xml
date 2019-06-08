@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcf.mapper.TbRespMapper" >
+  <resultMap id="BaseResultMap" type="com.hcf.pojo.TbResp" >
+    <id column="respId" property="respid" jdbcType="INTEGER" />
+    <result column="respReview" property="respreview" jdbcType="INTEGER" />
+    <result column="respPost" property="resppost" jdbcType="INTEGER" />
+    <result column="respFromWho" property="respfromwho" jdbcType="VARCHAR" />
+    <result column="respToWho" property="resptowho" jdbcType="VARCHAR" />
+    <result column="respTime" property="resptime" jdbcType="TIMESTAMP" />
+    <result column="respContext" property="respcontext" jdbcType="VARCHAR" />
+    <result column="respStatus" property="respstatus" jdbcType="INTEGER" />
+    <result column="respPic" property="resppic" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    respId, respReview, respPost, respFromWho, respToWho, respTime, respContext, respStatus, 
+    respPic
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hcf.pojo.TbRespExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_resp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_resp
+    where respId = #{respid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_resp
+    where respId = #{respid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hcf.pojo.TbRespExample" >
+    delete from tb_resp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hcf.pojo.TbResp" >
+    insert into tb_resp (respId, respReview, respPost, 
+      respFromWho, respToWho, respTime, 
+      respContext, respStatus, respPic
+      )
+    values (#{respid,jdbcType=INTEGER}, #{respreview,jdbcType=INTEGER}, #{resppost,jdbcType=INTEGER}, 
+      #{respfromwho,jdbcType=VARCHAR}, #{resptowho,jdbcType=VARCHAR}, #{resptime,jdbcType=TIMESTAMP}, 
+      #{respcontext,jdbcType=VARCHAR}, #{respstatus,jdbcType=INTEGER}, #{resppic,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcf.pojo.TbResp" >
+    insert into tb_resp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="respid != null" >
+        respId,
+      </if>
+      <if test="respreview != null" >
+        respReview,
+      </if>
+      <if test="resppost != null" >
+        respPost,
+      </if>
+      <if test="respfromwho != null" >
+        respFromWho,
+      </if>
+      <if test="resptowho != null" >
+        respToWho,
+      </if>
+      <if test="resptime != null" >
+        respTime,
+      </if>
+      <if test="respcontext != null" >
+        respContext,
+      </if>
+      <if test="respstatus != null" >
+        respStatus,
+      </if>
+      <if test="resppic != null" >
+        respPic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="respid != null" >
+        #{respid,jdbcType=INTEGER},
+      </if>
+      <if test="respreview != null" >
+        #{respreview,jdbcType=INTEGER},
+      </if>
+      <if test="resppost != null" >
+        #{resppost,jdbcType=INTEGER},
+      </if>
+      <if test="respfromwho != null" >
+        #{respfromwho,jdbcType=VARCHAR},
+      </if>
+      <if test="resptowho != null" >
+        #{resptowho,jdbcType=VARCHAR},
+      </if>
+      <if test="resptime != null" >
+        #{resptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="respcontext != null" >
+        #{respcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="respstatus != null" >
+        #{respstatus,jdbcType=INTEGER},
+      </if>
+      <if test="resppic != null" >
+        #{resppic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hcf.pojo.TbRespExample" resultType="java.lang.Integer" >
+    select count(*) from tb_resp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_resp
+    <set >
+      <if test="record.respid != null" >
+        respId = #{record.respid,jdbcType=INTEGER},
+      </if>
+      <if test="record.respreview != null" >
+        respReview = #{record.respreview,jdbcType=INTEGER},
+      </if>
+      <if test="record.resppost != null" >
+        respPost = #{record.resppost,jdbcType=INTEGER},
+      </if>
+      <if test="record.respfromwho != null" >
+        respFromWho = #{record.respfromwho,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resptowho != null" >
+        respToWho = #{record.resptowho,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resptime != null" >
+        respTime = #{record.resptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.respcontext != null" >
+        respContext = #{record.respcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.respstatus != null" >
+        respStatus = #{record.respstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.resppic != null" >
+        respPic = #{record.resppic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_resp
+    set respId = #{record.respid,jdbcType=INTEGER},
+      respReview = #{record.respreview,jdbcType=INTEGER},
+      respPost = #{record.resppost,jdbcType=INTEGER},
+      respFromWho = #{record.respfromwho,jdbcType=VARCHAR},
+      respToWho = #{record.resptowho,jdbcType=VARCHAR},
+      respTime = #{record.resptime,jdbcType=TIMESTAMP},
+      respContext = #{record.respcontext,jdbcType=VARCHAR},
+      respStatus = #{record.respstatus,jdbcType=INTEGER},
+      respPic = #{record.resppic,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcf.pojo.TbResp" >
+    update tb_resp
+    <set >
+      <if test="respreview != null" >
+        respReview = #{respreview,jdbcType=INTEGER},
+      </if>
+      <if test="resppost != null" >
+        respPost = #{resppost,jdbcType=INTEGER},
+      </if>
+      <if test="respfromwho != null" >
+        respFromWho = #{respfromwho,jdbcType=VARCHAR},
+      </if>
+      <if test="resptowho != null" >
+        respToWho = #{resptowho,jdbcType=VARCHAR},
+      </if>
+      <if test="resptime != null" >
+        respTime = #{resptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="respcontext != null" >
+        respContext = #{respcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="respstatus != null" >
+        respStatus = #{respstatus,jdbcType=INTEGER},
+      </if>
+      <if test="resppic != null" >
+        respPic = #{resppic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where respId = #{respid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcf.pojo.TbResp" >
+    update tb_resp
+    set respReview = #{respreview,jdbcType=INTEGER},
+      respPost = #{resppost,jdbcType=INTEGER},
+      respFromWho = #{respfromwho,jdbcType=VARCHAR},
+      respToWho = #{resptowho,jdbcType=VARCHAR},
+      respTime = #{resptime,jdbcType=TIMESTAMP},
+      respContext = #{respcontext,jdbcType=VARCHAR},
+      respStatus = #{respstatus,jdbcType=INTEGER},
+      respPic = #{resppic,jdbcType=VARCHAR}
+    where respId = #{respid,jdbcType=INTEGER}
+  </update>
+</mapper>

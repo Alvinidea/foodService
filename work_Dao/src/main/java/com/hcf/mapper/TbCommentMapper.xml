@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcf.mapper.TbCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.hcf.pojo.TbComment" >
+    <id column="cmtId" property="cmtid" jdbcType="INTEGER" />
+    <result column="cmtSeller" property="cmtseller" jdbcType="VARCHAR" />
+    <result column="cmtPayer" property="cmtpayer" jdbcType="VARCHAR" />
+    <result column="cmtOrderD" property="cmtorderd" jdbcType="VARCHAR" />
+    <result column="cmtOrder" property="cmtorder" jdbcType="VARCHAR" />
+    <result column="cmtGoods" property="cmtgoods" jdbcType="VARCHAR" />
+    <result column="cmtContext" property="cmtcontext" jdbcType="VARCHAR" />
+    <result column="cmtPicture" property="cmtpicture" jdbcType="VARCHAR" />
+    <result column="cmtStars" property="cmtstars" jdbcType="INTEGER" />
+    <result column="cmtTime" property="cmttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cmtId, cmtSeller, cmtPayer, cmtOrderD, cmtOrder, cmtGoods, cmtContext, cmtPicture, 
+    cmtStars, cmtTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hcf.pojo.TbCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comment
+    where cmtId = #{cmtid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_comment
+    where cmtId = #{cmtid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hcf.pojo.TbCommentExample" >
+    delete from tb_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hcf.pojo.TbComment" >
+    insert into tb_comment (cmtId, cmtSeller, cmtPayer, 
+      cmtOrderD, cmtOrder, cmtGoods, 
+      cmtContext, cmtPicture, cmtStars, 
+      cmtTime)
+    values (#{cmtid,jdbcType=INTEGER}, #{cmtseller,jdbcType=VARCHAR}, #{cmtpayer,jdbcType=VARCHAR}, 
+      #{cmtorderd,jdbcType=VARCHAR}, #{cmtorder,jdbcType=VARCHAR}, #{cmtgoods,jdbcType=VARCHAR}, 
+      #{cmtcontext,jdbcType=VARCHAR}, #{cmtpicture,jdbcType=VARCHAR}, #{cmtstars,jdbcType=INTEGER}, 
+      #{cmttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcf.pojo.TbComment" >
+    insert into tb_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cmtid != null" >
+        cmtId,
+      </if>
+      <if test="cmtseller != null" >
+        cmtSeller,
+      </if>
+      <if test="cmtpayer != null" >
+        cmtPayer,
+      </if>
+      <if test="cmtorderd != null" >
+        cmtOrderD,
+      </if>
+      <if test="cmtorder != null" >
+        cmtOrder,
+      </if>
+      <if test="cmtgoods != null" >
+        cmtGoods,
+      </if>
+      <if test="cmtcontext != null" >
+        cmtContext,
+      </if>
+      <if test="cmtpicture != null" >
+        cmtPicture,
+      </if>
+      <if test="cmtstars != null" >
+        cmtStars,
+      </if>
+      <if test="cmttime != null" >
+        cmtTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cmtid != null" >
+        #{cmtid,jdbcType=INTEGER},
+      </if>
+      <if test="cmtseller != null" >
+        #{cmtseller,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtpayer != null" >
+        #{cmtpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtorderd != null" >
+        #{cmtorderd,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtorder != null" >
+        #{cmtorder,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtgoods != null" >
+        #{cmtgoods,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtcontext != null" >
+        #{cmtcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtpicture != null" >
+        #{cmtpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtstars != null" >
+        #{cmtstars,jdbcType=INTEGER},
+      </if>
+      <if test="cmttime != null" >
+        #{cmttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hcf.pojo.TbCommentExample" resultType="java.lang.Integer" >
+    select count(*) from tb_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_comment
+    <set >
+      <if test="record.cmtid != null" >
+        cmtId = #{record.cmtid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmtseller != null" >
+        cmtSeller = #{record.cmtseller,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtpayer != null" >
+        cmtPayer = #{record.cmtpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtorderd != null" >
+        cmtOrderD = #{record.cmtorderd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtorder != null" >
+        cmtOrder = #{record.cmtorder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtgoods != null" >
+        cmtGoods = #{record.cmtgoods,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtcontext != null" >
+        cmtContext = #{record.cmtcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtpicture != null" >
+        cmtPicture = #{record.cmtpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtstars != null" >
+        cmtStars = #{record.cmtstars,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmttime != null" >
+        cmtTime = #{record.cmttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_comment
+    set cmtId = #{record.cmtid,jdbcType=INTEGER},
+      cmtSeller = #{record.cmtseller,jdbcType=VARCHAR},
+      cmtPayer = #{record.cmtpayer,jdbcType=VARCHAR},
+      cmtOrderD = #{record.cmtorderd,jdbcType=VARCHAR},
+      cmtOrder = #{record.cmtorder,jdbcType=VARCHAR},
+      cmtGoods = #{record.cmtgoods,jdbcType=VARCHAR},
+      cmtContext = #{record.cmtcontext,jdbcType=VARCHAR},
+      cmtPicture = #{record.cmtpicture,jdbcType=VARCHAR},
+      cmtStars = #{record.cmtstars,jdbcType=INTEGER},
+      cmtTime = #{record.cmttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcf.pojo.TbComment" >
+    update tb_comment
+    <set >
+      <if test="cmtseller != null" >
+        cmtSeller = #{cmtseller,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtpayer != null" >
+        cmtPayer = #{cmtpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtorderd != null" >
+        cmtOrderD = #{cmtorderd,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtorder != null" >
+        cmtOrder = #{cmtorder,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtgoods != null" >
+        cmtGoods = #{cmtgoods,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtcontext != null" >
+        cmtContext = #{cmtcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtpicture != null" >
+        cmtPicture = #{cmtpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtstars != null" >
+        cmtStars = #{cmtstars,jdbcType=INTEGER},
+      </if>
+      <if test="cmttime != null" >
+        cmtTime = #{cmttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cmtId = #{cmtid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcf.pojo.TbComment" >
+    update tb_comment
+    set cmtSeller = #{cmtseller,jdbcType=VARCHAR},
+      cmtPayer = #{cmtpayer,jdbcType=VARCHAR},
+      cmtOrderD = #{cmtorderd,jdbcType=VARCHAR},
+      cmtOrder = #{cmtorder,jdbcType=VARCHAR},
+      cmtGoods = #{cmtgoods,jdbcType=VARCHAR},
+      cmtContext = #{cmtcontext,jdbcType=VARCHAR},
+      cmtPicture = #{cmtpicture,jdbcType=VARCHAR},
+      cmtStars = #{cmtstars,jdbcType=INTEGER},
+      cmtTime = #{cmttime,jdbcType=TIMESTAMP}
+    where cmtId = #{cmtid,jdbcType=INTEGER}
+  </update>
+</mapper>

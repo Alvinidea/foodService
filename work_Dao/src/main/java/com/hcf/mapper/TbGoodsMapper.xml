@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcf.mapper.TbGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.hcf.pojo.TbGoods" >
+    <id column="goodsId" property="goodsid" jdbcType="VARCHAR" />
+    <result column="goodsSeller" property="goodsseller" jdbcType="VARCHAR" />
+    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
+    <result column="goodsPrice" property="goodsprice" jdbcType="DOUBLE" />
+    <result column="goodsDiscount" property="goodsdiscount" jdbcType="DOUBLE" />
+    <result column="goodsCmtNum" property="goodscmtnum" jdbcType="INTEGER" />
+    <result column="goodsPic" property="goodspic" jdbcType="VARCHAR" />
+    <result column="goodsStars" property="goodsstars" jdbcType="INTEGER" />
+    <result column="goodsOther" property="goodsother" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    goodsId, goodsSeller, goodsName, goodsPrice, goodsDiscount, goodsCmtNum, goodsPic, 
+    goodsStars, goodsOther
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hcf.pojo.TbGoodsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_goods
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_goods
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hcf.pojo.TbGoodsExample" >
+    delete from tb_goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hcf.pojo.TbGoods" >
+    insert into tb_goods (goodsId, goodsSeller, goodsName, 
+      goodsPrice, goodsDiscount, goodsCmtNum, 
+      goodsPic, goodsStars, goodsOther
+      )
+    values (#{goodsid,jdbcType=VARCHAR}, #{goodsseller,jdbcType=VARCHAR}, #{goodsname,jdbcType=VARCHAR}, 
+      #{goodsprice,jdbcType=DOUBLE}, #{goodsdiscount,jdbcType=DOUBLE}, #{goodscmtnum,jdbcType=INTEGER}, 
+      #{goodspic,jdbcType=VARCHAR}, #{goodsstars,jdbcType=INTEGER}, #{goodsother,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcf.pojo.TbGoods" >
+    insert into tb_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        goodsId,
+      </if>
+      <if test="goodsseller != null" >
+        goodsSeller,
+      </if>
+      <if test="goodsname != null" >
+        goodsName,
+      </if>
+      <if test="goodsprice != null" >
+        goodsPrice,
+      </if>
+      <if test="goodsdiscount != null" >
+        goodsDiscount,
+      </if>
+      <if test="goodscmtnum != null" >
+        goodsCmtNum,
+      </if>
+      <if test="goodspic != null" >
+        goodsPic,
+      </if>
+      <if test="goodsstars != null" >
+        goodsStars,
+      </if>
+      <if test="goodsother != null" >
+        goodsOther,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsseller != null" >
+        #{goodsseller,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null" >
+        #{goodsprice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsdiscount != null" >
+        #{goodsdiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="goodscmtnum != null" >
+        #{goodscmtnum,jdbcType=INTEGER},
+      </if>
+      <if test="goodspic != null" >
+        #{goodspic,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsstars != null" >
+        #{goodsstars,jdbcType=INTEGER},
+      </if>
+      <if test="goodsother != null" >
+        #{goodsother,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hcf.pojo.TbGoodsExample" resultType="java.lang.Integer" >
+    select count(*) from tb_goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_goods
+    <set >
+      <if test="record.goodsid != null" >
+        goodsId = #{record.goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsseller != null" >
+        goodsSeller = #{record.goodsseller,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsname != null" >
+        goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsprice != null" >
+        goodsPrice = #{record.goodsprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.goodsdiscount != null" >
+        goodsDiscount = #{record.goodsdiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.goodscmtnum != null" >
+        goodsCmtNum = #{record.goodscmtnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodspic != null" >
+        goodsPic = #{record.goodspic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsstars != null" >
+        goodsStars = #{record.goodsstars,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsother != null" >
+        goodsOther = #{record.goodsother,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_goods
+    set goodsId = #{record.goodsid,jdbcType=VARCHAR},
+      goodsSeller = #{record.goodsseller,jdbcType=VARCHAR},
+      goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      goodsPrice = #{record.goodsprice,jdbcType=DOUBLE},
+      goodsDiscount = #{record.goodsdiscount,jdbcType=DOUBLE},
+      goodsCmtNum = #{record.goodscmtnum,jdbcType=INTEGER},
+      goodsPic = #{record.goodspic,jdbcType=VARCHAR},
+      goodsStars = #{record.goodsstars,jdbcType=INTEGER},
+      goodsOther = #{record.goodsother,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcf.pojo.TbGoods" >
+    update tb_goods
+    <set >
+      <if test="goodsseller != null" >
+        goodsSeller = #{goodsseller,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null" >
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null" >
+        goodsPrice = #{goodsprice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsdiscount != null" >
+        goodsDiscount = #{goodsdiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="goodscmtnum != null" >
+        goodsCmtNum = #{goodscmtnum,jdbcType=INTEGER},
+      </if>
+      <if test="goodspic != null" >
+        goodsPic = #{goodspic,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsstars != null" >
+        goodsStars = #{goodsstars,jdbcType=INTEGER},
+      </if>
+      <if test="goodsother != null" >
+        goodsOther = #{goodsother,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcf.pojo.TbGoods" >
+    update tb_goods
+    set goodsSeller = #{goodsseller,jdbcType=VARCHAR},
+      goodsName = #{goodsname,jdbcType=VARCHAR},
+      goodsPrice = #{goodsprice,jdbcType=DOUBLE},
+      goodsDiscount = #{goodsdiscount,jdbcType=DOUBLE},
+      goodsCmtNum = #{goodscmtnum,jdbcType=INTEGER},
+      goodsPic = #{goodspic,jdbcType=VARCHAR},
+      goodsStars = #{goodsstars,jdbcType=INTEGER},
+      goodsOther = #{goodsother,jdbcType=VARCHAR}
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </update>
+</mapper>

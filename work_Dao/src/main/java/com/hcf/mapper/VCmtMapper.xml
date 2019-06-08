@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcf.mapper.VCmtMapper" >
+  <resultMap id="BaseResultMap" type="com.hcf.pojo.VCmt" >
+    <result column="cmtId" property="cmtid" jdbcType="INTEGER" />
+    <result column="cmtSeller" property="cmtseller" jdbcType="VARCHAR" />
+    <result column="cmtPayer" property="cmtpayer" jdbcType="VARCHAR" />
+    <result column="cmtOrder" property="cmtorder" jdbcType="INTEGER" />
+    <result column="cmtGoods" property="cmtgoods" jdbcType="VARCHAR" />
+    <result column="cmtContext" property="cmtcontext" jdbcType="VARCHAR" />
+    <result column="cmtPicture" property="cmtpicture" jdbcType="VARCHAR" />
+    <result column="cmtStars" property="cmtstars" jdbcType="INTEGER" />
+    <result column="cmtTime" property="cmttime" jdbcType="TIMESTAMP" />
+    <result column="orderPayMethod" property="orderpaymethod" jdbcType="VARCHAR" />
+    <result column="storeName" property="storename" jdbcType="VARCHAR" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
+    <result column="goodsPrice" property="goodsprice" jdbcType="DOUBLE" />
+    <result column="goodsDiscount" property="goodsdiscount" jdbcType="DOUBLE" />
+    <result column="goodsPic" property="goodspic" jdbcType="VARCHAR" />
+    <result column="orderStatus" property="orderstatus" jdbcType="INTEGER" />
+    <result column="orderOverTime" property="orderovertime" jdbcType="DATE" />
+    <result column="orderBeginTime" property="orderbegintime" jdbcType="DATE" />
+    <result column="orderSAddress" property="ordersaddress" jdbcType="VARCHAR" />
+    <result column="orderPAddress" property="orderpaddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cmtId, cmtSeller, cmtPayer, cmtOrder, cmtGoods, cmtContext, cmtPicture, cmtStars, 
+    cmtTime, orderPayMethod, storeName, userName, goodsName, goodsPrice, goodsDiscount, 
+    goodsPic, orderStatus, orderOverTime, orderBeginTime, orderSAddress, orderPAddress
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hcf.pojo.VCmtExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from v_cmt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.hcf.pojo.VCmtExample" >
+    delete from v_cmt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hcf.pojo.VCmt" >
+    insert into v_cmt (cmtId, cmtSeller, cmtPayer, 
+      cmtOrder, cmtGoods, cmtContext, 
+      cmtPicture, cmtStars, cmtTime, 
+      orderPayMethod, storeName, userName, 
+      goodsName, goodsPrice, goodsDiscount, 
+      goodsPic, orderStatus, orderOverTime, 
+      orderBeginTime, orderSAddress, orderPAddress
+      )
+    values (#{cmtid,jdbcType=INTEGER}, #{cmtseller,jdbcType=VARCHAR}, #{cmtpayer,jdbcType=VARCHAR}, 
+      #{cmtorder,jdbcType=INTEGER}, #{cmtgoods,jdbcType=VARCHAR}, #{cmtcontext,jdbcType=VARCHAR}, 
+      #{cmtpicture,jdbcType=VARCHAR}, #{cmtstars,jdbcType=INTEGER}, #{cmttime,jdbcType=TIMESTAMP}, 
+      #{orderpaymethod,jdbcType=VARCHAR}, #{storename,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{goodsname,jdbcType=VARCHAR}, #{goodsprice,jdbcType=DOUBLE}, #{goodsdiscount,jdbcType=DOUBLE}, 
+      #{goodspic,jdbcType=VARCHAR}, #{orderstatus,jdbcType=INTEGER}, #{orderovertime,jdbcType=DATE}, 
+      #{orderbegintime,jdbcType=DATE}, #{ordersaddress,jdbcType=VARCHAR}, #{orderpaddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcf.pojo.VCmt" >
+    insert into v_cmt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cmtid != null" >
+        cmtId,
+      </if>
+      <if test="cmtseller != null" >
+        cmtSeller,
+      </if>
+      <if test="cmtpayer != null" >
+        cmtPayer,
+      </if>
+      <if test="cmtorder != null" >
+        cmtOrder,
+      </if>
+      <if test="cmtgoods != null" >
+        cmtGoods,
+      </if>
+      <if test="cmtcontext != null" >
+        cmtContext,
+      </if>
+      <if test="cmtpicture != null" >
+        cmtPicture,
+      </if>
+      <if test="cmtstars != null" >
+        cmtStars,
+      </if>
+      <if test="cmttime != null" >
+        cmtTime,
+      </if>
+      <if test="orderpaymethod != null" >
+        orderPayMethod,
+      </if>
+      <if test="storename != null" >
+        storeName,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="goodsname != null" >
+        goodsName,
+      </if>
+      <if test="goodsprice != null" >
+        goodsPrice,
+      </if>
+      <if test="goodsdiscount != null" >
+        goodsDiscount,
+      </if>
+      <if test="goodspic != null" >
+        goodsPic,
+      </if>
+      <if test="orderstatus != null" >
+        orderStatus,
+      </if>
+      <if test="orderovertime != null" >
+        orderOverTime,
+      </if>
+      <if test="orderbegintime != null" >
+        orderBeginTime,
+      </if>
+      <if test="ordersaddress != null" >
+        orderSAddress,
+      </if>
+      <if test="orderpaddress != null" >
+        orderPAddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cmtid != null" >
+        #{cmtid,jdbcType=INTEGER},
+      </if>
+      <if test="cmtseller != null" >
+        #{cmtseller,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtpayer != null" >
+        #{cmtpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtorder != null" >
+        #{cmtorder,jdbcType=INTEGER},
+      </if>
+      <if test="cmtgoods != null" >
+        #{cmtgoods,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtcontext != null" >
+        #{cmtcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtpicture != null" >
+        #{cmtpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtstars != null" >
+        #{cmtstars,jdbcType=INTEGER},
+      </if>
+      <if test="cmttime != null" >
+        #{cmttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderpaymethod != null" >
+        #{orderpaymethod,jdbcType=VARCHAR},
+      </if>
+      <if test="storename != null" >
+        #{storename,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null" >
+        #{goodsprice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsdiscount != null" >
+        #{goodsdiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="goodspic != null" >
+        #{goodspic,jdbcType=VARCHAR},
+      </if>
+      <if test="orderstatus != null" >
+        #{orderstatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderovertime != null" >
+        #{orderovertime,jdbcType=DATE},
+      </if>
+      <if test="orderbegintime != null" >
+        #{orderbegintime,jdbcType=DATE},
+      </if>
+      <if test="ordersaddress != null" >
+        #{ordersaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderpaddress != null" >
+        #{orderpaddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hcf.pojo.VCmtExample" resultType="java.lang.Integer" >
+    select count(*) from v_cmt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update v_cmt
+    <set >
+      <if test="record.cmtid != null" >
+        cmtId = #{record.cmtid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmtseller != null" >
+        cmtSeller = #{record.cmtseller,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtpayer != null" >
+        cmtPayer = #{record.cmtpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtorder != null" >
+        cmtOrder = #{record.cmtorder,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmtgoods != null" >
+        cmtGoods = #{record.cmtgoods,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtcontext != null" >
+        cmtContext = #{record.cmtcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtpicture != null" >
+        cmtPicture = #{record.cmtpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtstars != null" >
+        cmtStars = #{record.cmtstars,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmttime != null" >
+        cmtTime = #{record.cmttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderpaymethod != null" >
+        orderPayMethod = #{record.orderpaymethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storename != null" >
+        storeName = #{record.storename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsname != null" >
+        goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsprice != null" >
+        goodsPrice = #{record.goodsprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.goodsdiscount != null" >
+        goodsDiscount = #{record.goodsdiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.goodspic != null" >
+        goodsPic = #{record.goodspic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderstatus != null" >
+        orderStatus = #{record.orderstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderovertime != null" >
+        orderOverTime = #{record.orderovertime,jdbcType=DATE},
+      </if>
+      <if test="record.orderbegintime != null" >
+        orderBeginTime = #{record.orderbegintime,jdbcType=DATE},
+      </if>
+      <if test="record.ordersaddress != null" >
+        orderSAddress = #{record.ordersaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderpaddress != null" >
+        orderPAddress = #{record.orderpaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update v_cmt
+    set cmtId = #{record.cmtid,jdbcType=INTEGER},
+      cmtSeller = #{record.cmtseller,jdbcType=VARCHAR},
+      cmtPayer = #{record.cmtpayer,jdbcType=VARCHAR},
+      cmtOrder = #{record.cmtorder,jdbcType=INTEGER},
+      cmtGoods = #{record.cmtgoods,jdbcType=VARCHAR},
+      cmtContext = #{record.cmtcontext,jdbcType=VARCHAR},
+      cmtPicture = #{record.cmtpicture,jdbcType=VARCHAR},
+      cmtStars = #{record.cmtstars,jdbcType=INTEGER},
+      cmtTime = #{record.cmttime,jdbcType=TIMESTAMP},
+      orderPayMethod = #{record.orderpaymethod,jdbcType=VARCHAR},
+      storeName = #{record.storename,jdbcType=VARCHAR},
+      userName = #{record.username,jdbcType=VARCHAR},
+      goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      goodsPrice = #{record.goodsprice,jdbcType=DOUBLE},
+      goodsDiscount = #{record.goodsdiscount,jdbcType=DOUBLE},
+      goodsPic = #{record.goodspic,jdbcType=VARCHAR},
+      orderStatus = #{record.orderstatus,jdbcType=INTEGER},
+      orderOverTime = #{record.orderovertime,jdbcType=DATE},
+      orderBeginTime = #{record.orderbegintime,jdbcType=DATE},
+      orderSAddress = #{record.ordersaddress,jdbcType=VARCHAR},
+      orderPAddress = #{record.orderpaddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

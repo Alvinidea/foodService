@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcf.mapper.TbOrdersMapper" >
+  <resultMap id="BaseResultMap" type="com.hcf.pojo.TbOrders" >
+    <id column="orderId" property="orderid" jdbcType="VARCHAR" />
+    <result column="orderSeller" property="orderseller" jdbcType="VARCHAR" />
+    <result column="orderPayer" property="orderpayer" jdbcType="VARCHAR" />
+    <result column="orderSAddress" property="ordersaddress" jdbcType="VARCHAR" />
+    <result column="orderPAddress" property="orderpaddress" jdbcType="VARCHAR" />
+    <result column="orderDetailNum" property="orderdetailnum" jdbcType="INTEGER" />
+    <result column="orderDiscount" property="orderdiscount" jdbcType="DOUBLE" />
+    <result column="orderAllPrice" property="orderallprice" jdbcType="DOUBLE" />
+    <result column="orderStatus" property="orderstatus" jdbcType="INTEGER" />
+    <result column="orderPayMethod" property="orderpaymethod" jdbcType="VARCHAR" />
+    <result column="orderOther" property="orderother" jdbcType="VARCHAR" />
+    <result column="orderBeginTime" property="orderbegintime" jdbcType="DATE" />
+    <result column="orderOverTime" property="orderovertime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    orderId, orderSeller, orderPayer, orderSAddress, orderPAddress, orderDetailNum, orderDiscount, 
+    orderAllPrice, orderStatus, orderPayMethod, orderOther, orderBeginTime, orderOverTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hcf.pojo.TbOrdersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_orders
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_orders
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hcf.pojo.TbOrdersExample" >
+    delete from tb_orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hcf.pojo.TbOrders" >
+    insert into tb_orders (orderId, orderSeller, orderPayer, 
+      orderSAddress, orderPAddress, orderDetailNum, 
+      orderDiscount, orderAllPrice, orderStatus, 
+      orderPayMethod, orderOther, orderBeginTime, 
+      orderOverTime)
+    values (#{orderid,jdbcType=VARCHAR}, #{orderseller,jdbcType=VARCHAR}, #{orderpayer,jdbcType=VARCHAR}, 
+      #{ordersaddress,jdbcType=VARCHAR}, #{orderpaddress,jdbcType=VARCHAR}, #{orderdetailnum,jdbcType=INTEGER}, 
+      #{orderdiscount,jdbcType=DOUBLE}, #{orderallprice,jdbcType=DOUBLE}, #{orderstatus,jdbcType=INTEGER}, 
+      #{orderpaymethod,jdbcType=VARCHAR}, #{orderother,jdbcType=VARCHAR}, #{orderbegintime,jdbcType=DATE}, 
+      #{orderovertime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcf.pojo.TbOrders" >
+    insert into tb_orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        orderId,
+      </if>
+      <if test="orderseller != null" >
+        orderSeller,
+      </if>
+      <if test="orderpayer != null" >
+        orderPayer,
+      </if>
+      <if test="ordersaddress != null" >
+        orderSAddress,
+      </if>
+      <if test="orderpaddress != null" >
+        orderPAddress,
+      </if>
+      <if test="orderdetailnum != null" >
+        orderDetailNum,
+      </if>
+      <if test="orderdiscount != null" >
+        orderDiscount,
+      </if>
+      <if test="orderallprice != null" >
+        orderAllPrice,
+      </if>
+      <if test="orderstatus != null" >
+        orderStatus,
+      </if>
+      <if test="orderpaymethod != null" >
+        orderPayMethod,
+      </if>
+      <if test="orderother != null" >
+        orderOther,
+      </if>
+      <if test="orderbegintime != null" >
+        orderBeginTime,
+      </if>
+      <if test="orderovertime != null" >
+        orderOverTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderseller != null" >
+        #{orderseller,jdbcType=VARCHAR},
+      </if>
+      <if test="orderpayer != null" >
+        #{orderpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="ordersaddress != null" >
+        #{ordersaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderpaddress != null" >
+        #{orderpaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdetailnum != null" >
+        #{orderdetailnum,jdbcType=INTEGER},
+      </if>
+      <if test="orderdiscount != null" >
+        #{orderdiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="orderallprice != null" >
+        #{orderallprice,jdbcType=DOUBLE},
+      </if>
+      <if test="orderstatus != null" >
+        #{orderstatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderpaymethod != null" >
+        #{orderpaymethod,jdbcType=VARCHAR},
+      </if>
+      <if test="orderother != null" >
+        #{orderother,jdbcType=VARCHAR},
+      </if>
+      <if test="orderbegintime != null" >
+        #{orderbegintime,jdbcType=DATE},
+      </if>
+      <if test="orderovertime != null" >
+        #{orderovertime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hcf.pojo.TbOrdersExample" resultType="java.lang.Integer" >
+    select count(*) from tb_orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_orders
+    <set >
+      <if test="record.orderid != null" >
+        orderId = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderseller != null" >
+        orderSeller = #{record.orderseller,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderpayer != null" >
+        orderPayer = #{record.orderpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordersaddress != null" >
+        orderSAddress = #{record.ordersaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderpaddress != null" >
+        orderPAddress = #{record.orderpaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderdetailnum != null" >
+        orderDetailNum = #{record.orderdetailnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderdiscount != null" >
+        orderDiscount = #{record.orderdiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderallprice != null" >
+        orderAllPrice = #{record.orderallprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderstatus != null" >
+        orderStatus = #{record.orderstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderpaymethod != null" >
+        orderPayMethod = #{record.orderpaymethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderother != null" >
+        orderOther = #{record.orderother,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderbegintime != null" >
+        orderBeginTime = #{record.orderbegintime,jdbcType=DATE},
+      </if>
+      <if test="record.orderovertime != null" >
+        orderOverTime = #{record.orderovertime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_orders
+    set orderId = #{record.orderid,jdbcType=VARCHAR},
+      orderSeller = #{record.orderseller,jdbcType=VARCHAR},
+      orderPayer = #{record.orderpayer,jdbcType=VARCHAR},
+      orderSAddress = #{record.ordersaddress,jdbcType=VARCHAR},
+      orderPAddress = #{record.orderpaddress,jdbcType=VARCHAR},
+      orderDetailNum = #{record.orderdetailnum,jdbcType=INTEGER},
+      orderDiscount = #{record.orderdiscount,jdbcType=DOUBLE},
+      orderAllPrice = #{record.orderallprice,jdbcType=DOUBLE},
+      orderStatus = #{record.orderstatus,jdbcType=INTEGER},
+      orderPayMethod = #{record.orderpaymethod,jdbcType=VARCHAR},
+      orderOther = #{record.orderother,jdbcType=VARCHAR},
+      orderBeginTime = #{record.orderbegintime,jdbcType=DATE},
+      orderOverTime = #{record.orderovertime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcf.pojo.TbOrders" >
+    update tb_orders
+    <set >
+      <if test="orderseller != null" >
+        orderSeller = #{orderseller,jdbcType=VARCHAR},
+      </if>
+      <if test="orderpayer != null" >
+        orderPayer = #{orderpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="ordersaddress != null" >
+        orderSAddress = #{ordersaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderpaddress != null" >
+        orderPAddress = #{orderpaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdetailnum != null" >
+        orderDetailNum = #{orderdetailnum,jdbcType=INTEGER},
+      </if>
+      <if test="orderdiscount != null" >
+        orderDiscount = #{orderdiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="orderallprice != null" >
+        orderAllPrice = #{orderallprice,jdbcType=DOUBLE},
+      </if>
+      <if test="orderstatus != null" >
+        orderStatus = #{orderstatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderpaymethod != null" >
+        orderPayMethod = #{orderpaymethod,jdbcType=VARCHAR},
+      </if>
+      <if test="orderother != null" >
+        orderOther = #{orderother,jdbcType=VARCHAR},
+      </if>
+      <if test="orderbegintime != null" >
+        orderBeginTime = #{orderbegintime,jdbcType=DATE},
+      </if>
+      <if test="orderovertime != null" >
+        orderOverTime = #{orderovertime,jdbcType=DATE},
+      </if>
+    </set>
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcf.pojo.TbOrders" >
+    update tb_orders
+    set orderSeller = #{orderseller,jdbcType=VARCHAR},
+      orderPayer = #{orderpayer,jdbcType=VARCHAR},
+      orderSAddress = #{ordersaddress,jdbcType=VARCHAR},
+      orderPAddress = #{orderpaddress,jdbcType=VARCHAR},
+      orderDetailNum = #{orderdetailnum,jdbcType=INTEGER},
+      orderDiscount = #{orderdiscount,jdbcType=DOUBLE},
+      orderAllPrice = #{orderallprice,jdbcType=DOUBLE},
+      orderStatus = #{orderstatus,jdbcType=INTEGER},
+      orderPayMethod = #{orderpaymethod,jdbcType=VARCHAR},
+      orderOther = #{orderother,jdbcType=VARCHAR},
+      orderBeginTime = #{orderbegintime,jdbcType=DATE},
+      orderOverTime = #{orderovertime,jdbcType=DATE}
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </update>
+</mapper>

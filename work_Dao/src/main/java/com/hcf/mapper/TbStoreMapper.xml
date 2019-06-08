@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcf.mapper.TbStoreMapper" >
+  <resultMap id="BaseResultMap" type="com.hcf.pojo.TbStore" >
+    <id column="storeId" property="storeid" jdbcType="VARCHAR" />
+    <result column="storeOwnerId" property="storeownerid" jdbcType="VARCHAR" />
+    <result column="storeName" property="storename" jdbcType="VARCHAR" />
+    <result column="storeAddress" property="storeaddress" jdbcType="VARCHAR" />
+    <result column="storePhone" property="storephone" jdbcType="VARCHAR" />
+    <result column="storePicture" property="storepicture" jdbcType="VARCHAR" />
+    <result column="storeCmtNum" property="storecmtnum" jdbcType="INTEGER" />
+    <result column="storetype" property="storetype" jdbcType="INTEGER" />
+    <result column="storeAverPrice" property="storeaverprice" jdbcType="INTEGER" />
+    <result column="storeLevel" property="storelevel" jdbcType="INTEGER" />
+    <result column="storeApplyTime" property="storeapplytime" jdbcType="TIMESTAMP" />
+    <result column="storeIsWork" property="storeiswork" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    storeId, storeOwnerId, storeName, storeAddress, storePhone, storePicture, storeCmtNum, 
+    storetype, storeAverPrice, storeLevel, storeApplyTime, storeIsWork
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hcf.pojo.TbStoreExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_store
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_store
+    where storeId = #{storeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_store
+    where storeId = #{storeid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hcf.pojo.TbStoreExample" >
+    delete from tb_store
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hcf.pojo.TbStore" >
+    insert into tb_store (storeId, storeOwnerId, storeName, 
+      storeAddress, storePhone, storePicture, 
+      storeCmtNum, storetype, storeAverPrice, 
+      storeLevel, storeApplyTime, storeIsWork
+      )
+    values (#{storeid,jdbcType=VARCHAR}, #{storeownerid,jdbcType=VARCHAR}, #{storename,jdbcType=VARCHAR}, 
+      #{storeaddress,jdbcType=VARCHAR}, #{storephone,jdbcType=VARCHAR}, #{storepicture,jdbcType=VARCHAR}, 
+      #{storecmtnum,jdbcType=INTEGER}, #{storetype,jdbcType=INTEGER}, #{storeaverprice,jdbcType=INTEGER}, 
+      #{storelevel,jdbcType=INTEGER}, #{storeapplytime,jdbcType=TIMESTAMP}, #{storeiswork,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcf.pojo.TbStore" >
+    insert into tb_store
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeid != null" >
+        storeId,
+      </if>
+      <if test="storeownerid != null" >
+        storeOwnerId,
+      </if>
+      <if test="storename != null" >
+        storeName,
+      </if>
+      <if test="storeaddress != null" >
+        storeAddress,
+      </if>
+      <if test="storephone != null" >
+        storePhone,
+      </if>
+      <if test="storepicture != null" >
+        storePicture,
+      </if>
+      <if test="storecmtnum != null" >
+        storeCmtNum,
+      </if>
+      <if test="storetype != null" >
+        storetype,
+      </if>
+      <if test="storeaverprice != null" >
+        storeAverPrice,
+      </if>
+      <if test="storelevel != null" >
+        storeLevel,
+      </if>
+      <if test="storeapplytime != null" >
+        storeApplyTime,
+      </if>
+      <if test="storeiswork != null" >
+        storeIsWork,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeid != null" >
+        #{storeid,jdbcType=VARCHAR},
+      </if>
+      <if test="storeownerid != null" >
+        #{storeownerid,jdbcType=VARCHAR},
+      </if>
+      <if test="storename != null" >
+        #{storename,jdbcType=VARCHAR},
+      </if>
+      <if test="storeaddress != null" >
+        #{storeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storephone != null" >
+        #{storephone,jdbcType=VARCHAR},
+      </if>
+      <if test="storepicture != null" >
+        #{storepicture,jdbcType=VARCHAR},
+      </if>
+      <if test="storecmtnum != null" >
+        #{storecmtnum,jdbcType=INTEGER},
+      </if>
+      <if test="storetype != null" >
+        #{storetype,jdbcType=INTEGER},
+      </if>
+      <if test="storeaverprice != null" >
+        #{storeaverprice,jdbcType=INTEGER},
+      </if>
+      <if test="storelevel != null" >
+        #{storelevel,jdbcType=INTEGER},
+      </if>
+      <if test="storeapplytime != null" >
+        #{storeapplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeiswork != null" >
+        #{storeiswork,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hcf.pojo.TbStoreExample" resultType="java.lang.Integer" >
+    select count(*) from tb_store
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_store
+    <set >
+      <if test="record.storeid != null" >
+        storeId = #{record.storeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeownerid != null" >
+        storeOwnerId = #{record.storeownerid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storename != null" >
+        storeName = #{record.storename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeaddress != null" >
+        storeAddress = #{record.storeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storephone != null" >
+        storePhone = #{record.storephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storepicture != null" >
+        storePicture = #{record.storepicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storecmtnum != null" >
+        storeCmtNum = #{record.storecmtnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.storetype != null" >
+        storetype = #{record.storetype,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeaverprice != null" >
+        storeAverPrice = #{record.storeaverprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.storelevel != null" >
+        storeLevel = #{record.storelevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeapplytime != null" >
+        storeApplyTime = #{record.storeapplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.storeiswork != null" >
+        storeIsWork = #{record.storeiswork,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_store
+    set storeId = #{record.storeid,jdbcType=VARCHAR},
+      storeOwnerId = #{record.storeownerid,jdbcType=VARCHAR},
+      storeName = #{record.storename,jdbcType=VARCHAR},
+      storeAddress = #{record.storeaddress,jdbcType=VARCHAR},
+      storePhone = #{record.storephone,jdbcType=VARCHAR},
+      storePicture = #{record.storepicture,jdbcType=VARCHAR},
+      storeCmtNum = #{record.storecmtnum,jdbcType=INTEGER},
+      storetype = #{record.storetype,jdbcType=INTEGER},
+      storeAverPrice = #{record.storeaverprice,jdbcType=INTEGER},
+      storeLevel = #{record.storelevel,jdbcType=INTEGER},
+      storeApplyTime = #{record.storeapplytime,jdbcType=TIMESTAMP},
+      storeIsWork = #{record.storeiswork,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcf.pojo.TbStore" >
+    update tb_store
+    <set >
+      <if test="storeownerid != null" >
+        storeOwnerId = #{storeownerid,jdbcType=VARCHAR},
+      </if>
+      <if test="storename != null" >
+        storeName = #{storename,jdbcType=VARCHAR},
+      </if>
+      <if test="storeaddress != null" >
+        storeAddress = #{storeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storephone != null" >
+        storePhone = #{storephone,jdbcType=VARCHAR},
+      </if>
+      <if test="storepicture != null" >
+        storePicture = #{storepicture,jdbcType=VARCHAR},
+      </if>
+      <if test="storecmtnum != null" >
+        storeCmtNum = #{storecmtnum,jdbcType=INTEGER},
+      </if>
+      <if test="storetype != null" >
+        storetype = #{storetype,jdbcType=INTEGER},
+      </if>
+      <if test="storeaverprice != null" >
+        storeAverPrice = #{storeaverprice,jdbcType=INTEGER},
+      </if>
+      <if test="storelevel != null" >
+        storeLevel = #{storelevel,jdbcType=INTEGER},
+      </if>
+      <if test="storeapplytime != null" >
+        storeApplyTime = #{storeapplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeiswork != null" >
+        storeIsWork = #{storeiswork,jdbcType=INTEGER},
+      </if>
+    </set>
+    where storeId = #{storeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcf.pojo.TbStore" >
+    update tb_store
+    set storeOwnerId = #{storeownerid,jdbcType=VARCHAR},
+      storeName = #{storename,jdbcType=VARCHAR},
+      storeAddress = #{storeaddress,jdbcType=VARCHAR},
+      storePhone = #{storephone,jdbcType=VARCHAR},
+      storePicture = #{storepicture,jdbcType=VARCHAR},
+      storeCmtNum = #{storecmtnum,jdbcType=INTEGER},
+      storetype = #{storetype,jdbcType=INTEGER},
+      storeAverPrice = #{storeaverprice,jdbcType=INTEGER},
+      storeLevel = #{storelevel,jdbcType=INTEGER},
+      storeApplyTime = #{storeapplytime,jdbcType=TIMESTAMP},
+      storeIsWork = #{storeiswork,jdbcType=INTEGER}
+    where storeId = #{storeid,jdbcType=VARCHAR}
+  </update>
+</mapper>

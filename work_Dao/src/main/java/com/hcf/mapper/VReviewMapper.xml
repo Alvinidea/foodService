@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcf.mapper.VReviewMapper" >
+  <resultMap id="BaseResultMap" type="com.hcf.pojo.VReview" >
+    <result column="reviewId" property="reviewid" jdbcType="INTEGER" />
+    <result column="reviewPost" property="reviewpost" jdbcType="INTEGER" />
+    <result column="reviewer" property="reviewer" jdbcType="VARCHAR" />
+    <result column="reviewContext" property="reviewcontext" jdbcType="VARCHAR" />
+    <result column="reviewTime" property="reviewtime" jdbcType="TIMESTAMP" />
+    <result column="reviewPic" property="reviewpic" jdbcType="VARCHAR" />
+    <result column="reviewThumb" property="reviewthumb" jdbcType="INTEGER" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="userPhotoD" property="userphotod" jdbcType="VARCHAR" />
+    <result column="postTitle" property="posttitle" jdbcType="VARCHAR" />
+    <result column="postPic" property="postpic" jdbcType="VARCHAR" />
+    <result column="postStatus" property="poststatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    reviewId, reviewPost, reviewer, reviewContext, reviewTime, reviewPic, reviewThumb, 
+    userName, userPhotoD, postTitle, postPic, postStatus
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hcf.pojo.VReviewExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from v_review
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.hcf.pojo.VReviewExample" >
+    delete from v_review
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hcf.pojo.VReview" >
+    insert into v_review (reviewId, reviewPost, reviewer, 
+      reviewContext, reviewTime, reviewPic, 
+      reviewThumb, userName, userPhotoD, 
+      postTitle, postPic, postStatus
+      )
+    values (#{reviewid,jdbcType=INTEGER}, #{reviewpost,jdbcType=INTEGER}, #{reviewer,jdbcType=VARCHAR}, 
+      #{reviewcontext,jdbcType=VARCHAR}, #{reviewtime,jdbcType=TIMESTAMP}, #{reviewpic,jdbcType=VARCHAR}, 
+      #{reviewthumb,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userphotod,jdbcType=VARCHAR}, 
+      #{posttitle,jdbcType=VARCHAR}, #{postpic,jdbcType=VARCHAR}, #{poststatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcf.pojo.VReview" >
+    insert into v_review
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reviewid != null" >
+        reviewId,
+      </if>
+      <if test="reviewpost != null" >
+        reviewPost,
+      </if>
+      <if test="reviewer != null" >
+        reviewer,
+      </if>
+      <if test="reviewcontext != null" >
+        reviewContext,
+      </if>
+      <if test="reviewtime != null" >
+        reviewTime,
+      </if>
+      <if test="reviewpic != null" >
+        reviewPic,
+      </if>
+      <if test="reviewthumb != null" >
+        reviewThumb,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="userphotod != null" >
+        userPhotoD,
+      </if>
+      <if test="posttitle != null" >
+        postTitle,
+      </if>
+      <if test="postpic != null" >
+        postPic,
+      </if>
+      <if test="poststatus != null" >
+        postStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reviewid != null" >
+        #{reviewid,jdbcType=INTEGER},
+      </if>
+      <if test="reviewpost != null" >
+        #{reviewpost,jdbcType=INTEGER},
+      </if>
+      <if test="reviewer != null" >
+        #{reviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewcontext != null" >
+        #{reviewcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewtime != null" >
+        #{reviewtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviewpic != null" >
+        #{reviewpic,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewthumb != null" >
+        #{reviewthumb,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userphotod != null" >
+        #{userphotod,jdbcType=VARCHAR},
+      </if>
+      <if test="posttitle != null" >
+        #{posttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="postpic != null" >
+        #{postpic,jdbcType=VARCHAR},
+      </if>
+      <if test="poststatus != null" >
+        #{poststatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hcf.pojo.VReviewExample" resultType="java.lang.Integer" >
+    select count(*) from v_review
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update v_review
+    <set >
+      <if test="record.reviewid != null" >
+        reviewId = #{record.reviewid,jdbcType=INTEGER},
+      </if>
+      <if test="record.reviewpost != null" >
+        reviewPost = #{record.reviewpost,jdbcType=INTEGER},
+      </if>
+      <if test="record.reviewer != null" >
+        reviewer = #{record.reviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviewcontext != null" >
+        reviewContext = #{record.reviewcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviewtime != null" >
+        reviewTime = #{record.reviewtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reviewpic != null" >
+        reviewPic = #{record.reviewpic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviewthumb != null" >
+        reviewThumb = #{record.reviewthumb,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userphotod != null" >
+        userPhotoD = #{record.userphotod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posttitle != null" >
+        postTitle = #{record.posttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postpic != null" >
+        postPic = #{record.postpic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poststatus != null" >
+        postStatus = #{record.poststatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update v_review
+    set reviewId = #{record.reviewid,jdbcType=INTEGER},
+      reviewPost = #{record.reviewpost,jdbcType=INTEGER},
+      reviewer = #{record.reviewer,jdbcType=VARCHAR},
+      reviewContext = #{record.reviewcontext,jdbcType=VARCHAR},
+      reviewTime = #{record.reviewtime,jdbcType=TIMESTAMP},
+      reviewPic = #{record.reviewpic,jdbcType=VARCHAR},
+      reviewThumb = #{record.reviewthumb,jdbcType=INTEGER},
+      userName = #{record.username,jdbcType=VARCHAR},
+      userPhotoD = #{record.userphotod,jdbcType=VARCHAR},
+      postTitle = #{record.posttitle,jdbcType=VARCHAR},
+      postPic = #{record.postpic,jdbcType=VARCHAR},
+      postStatus = #{record.poststatus,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

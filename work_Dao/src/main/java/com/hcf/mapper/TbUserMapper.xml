@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcf.mapper.TbUserMapper" >
+  <resultMap id="BaseResultMap" type="com.hcf.pojo.TbUser" >
+    <id column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="userEmail" property="useremail" jdbcType="VARCHAR" />
+    <result column="userPhone" property="userphone" jdbcType="VARCHAR" />
+    <result column="userAddress" property="useraddress" jdbcType="VARCHAR" />
+    <result column="userApplyTime" property="userapplytime" jdbcType="TIMESTAMP" />
+    <result column="userStatus" property="userstatus" jdbcType="INTEGER" />
+    <result column="userPwd" property="userpwd" jdbcType="VARCHAR" />
+    <result column="userLevel" property="userlevel" jdbcType="INTEGER" />
+    <result column="userPower" property="userpower" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userId, userName, userEmail, userPhone, userAddress, userApplyTime, userStatus, userPwd, 
+    userLevel, userPower
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hcf.pojo.TbUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user
+    where userId = #{userid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_user
+    where userId = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hcf.pojo.TbUserExample" >
+    delete from tb_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hcf.pojo.TbUser" >
+    insert into tb_user (userId, userName, userEmail, 
+      userPhone, userAddress, userApplyTime, 
+      userStatus, userPwd, userLevel, 
+      userPower)
+    values (#{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{useremail,jdbcType=VARCHAR}, 
+      #{userphone,jdbcType=VARCHAR}, #{useraddress,jdbcType=VARCHAR}, #{userapplytime,jdbcType=TIMESTAMP}, 
+      #{userstatus,jdbcType=INTEGER}, #{userpwd,jdbcType=VARCHAR}, #{userlevel,jdbcType=INTEGER}, 
+      #{userpower,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcf.pojo.TbUser" >
+    insert into tb_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="useremail != null" >
+        userEmail,
+      </if>
+      <if test="userphone != null" >
+        userPhone,
+      </if>
+      <if test="useraddress != null" >
+        userAddress,
+      </if>
+      <if test="userapplytime != null" >
+        userApplyTime,
+      </if>
+      <if test="userstatus != null" >
+        userStatus,
+      </if>
+      <if test="userpwd != null" >
+        userPwd,
+      </if>
+      <if test="userlevel != null" >
+        userLevel,
+      </if>
+      <if test="userpower != null" >
+        userPower,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null" >
+        #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userapplytime != null" >
+        #{userapplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userstatus != null" >
+        #{userstatus,jdbcType=INTEGER},
+      </if>
+      <if test="userpwd != null" >
+        #{userpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userlevel != null" >
+        #{userlevel,jdbcType=INTEGER},
+      </if>
+      <if test="userpower != null" >
+        #{userpower,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hcf.pojo.TbUserExample" resultType="java.lang.Integer" >
+    select count(*) from tb_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_user
+    <set >
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useremail != null" >
+        userEmail = #{record.useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userphone != null" >
+        userPhone = #{record.userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useraddress != null" >
+        userAddress = #{record.useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userapplytime != null" >
+        userApplyTime = #{record.userapplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userstatus != null" >
+        userStatus = #{record.userstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.userpwd != null" >
+        userPwd = #{record.userpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userlevel != null" >
+        userLevel = #{record.userlevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.userpower != null" >
+        userPower = #{record.userpower,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_user
+    set userId = #{record.userid,jdbcType=VARCHAR},
+      userName = #{record.username,jdbcType=VARCHAR},
+      userEmail = #{record.useremail,jdbcType=VARCHAR},
+      userPhone = #{record.userphone,jdbcType=VARCHAR},
+      userAddress = #{record.useraddress,jdbcType=VARCHAR},
+      userApplyTime = #{record.userapplytime,jdbcType=TIMESTAMP},
+      userStatus = #{record.userstatus,jdbcType=INTEGER},
+      userPwd = #{record.userpwd,jdbcType=VARCHAR},
+      userLevel = #{record.userlevel,jdbcType=INTEGER},
+      userPower = #{record.userpower,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcf.pojo.TbUser" >
+    update tb_user
+    <set >
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        userEmail = #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        userPhone = #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null" >
+        userAddress = #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userapplytime != null" >
+        userApplyTime = #{userapplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userstatus != null" >
+        userStatus = #{userstatus,jdbcType=INTEGER},
+      </if>
+      <if test="userpwd != null" >
+        userPwd = #{userpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userlevel != null" >
+        userLevel = #{userlevel,jdbcType=INTEGER},
+      </if>
+      <if test="userpower != null" >
+        userPower = #{userpower,jdbcType=INTEGER},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcf.pojo.TbUser" >
+    update tb_user
+    set userName = #{username,jdbcType=VARCHAR},
+      userEmail = #{useremail,jdbcType=VARCHAR},
+      userPhone = #{userphone,jdbcType=VARCHAR},
+      userAddress = #{useraddress,jdbcType=VARCHAR},
+      userApplyTime = #{userapplytime,jdbcType=TIMESTAMP},
+      userStatus = #{userstatus,jdbcType=INTEGER},
+      userPwd = #{userpwd,jdbcType=VARCHAR},
+      userLevel = #{userlevel,jdbcType=INTEGER},
+      userPower = #{userpower,jdbcType=INTEGER}
+    where userId = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

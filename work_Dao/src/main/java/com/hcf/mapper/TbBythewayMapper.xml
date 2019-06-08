@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcf.mapper.TbBythewayMapper" >
+  <resultMap id="BaseResultMap" type="com.hcf.pojo.TbBytheway" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="deliver" property="deliver" jdbcType="VARCHAR" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="overtime" property="overtime" jdbcType="TIMESTAMP" />
+    <result column="begintime" property="begintime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="payerCmt" property="payercmt" jdbcType="VARCHAR" />
+    <result column="sellerCmt" property="sellercmt" jdbcType="VARCHAR" />
+    <result column="star" property="star" jdbcType="INTEGER" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, deliver, orderid, price, overtime, begintime, status, payerCmt, sellerCmt, star, 
+    other
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hcf.pojo.TbBythewayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_bytheway
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_bytheway
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_bytheway
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hcf.pojo.TbBythewayExample" >
+    delete from tb_bytheway
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hcf.pojo.TbBytheway" >
+    insert into tb_bytheway (id, deliver, orderid, 
+      price, overtime, begintime, 
+      status, payerCmt, sellerCmt, 
+      star, other)
+    values (#{id,jdbcType=INTEGER}, #{deliver,jdbcType=VARCHAR}, #{orderid,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{overtime,jdbcType=TIMESTAMP}, #{begintime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{payercmt,jdbcType=VARCHAR}, #{sellercmt,jdbcType=VARCHAR}, 
+      #{star,jdbcType=INTEGER}, #{other,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcf.pojo.TbBytheway" >
+    insert into tb_bytheway
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deliver != null" >
+        deliver,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="overtime != null" >
+        overtime,
+      </if>
+      <if test="begintime != null" >
+        begintime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="payercmt != null" >
+        payerCmt,
+      </if>
+      <if test="sellercmt != null" >
+        sellerCmt,
+      </if>
+      <if test="star != null" >
+        star,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deliver != null" >
+        #{deliver,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="overtime != null" >
+        #{overtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="payercmt != null" >
+        #{payercmt,jdbcType=VARCHAR},
+      </if>
+      <if test="sellercmt != null" >
+        #{sellercmt,jdbcType=VARCHAR},
+      </if>
+      <if test="star != null" >
+        #{star,jdbcType=INTEGER},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hcf.pojo.TbBythewayExample" resultType="java.lang.Integer" >
+    select count(*) from tb_bytheway
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_bytheway
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.deliver != null" >
+        deliver = #{record.deliver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.overtime != null" >
+        overtime = #{record.overtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.begintime != null" >
+        begintime = #{record.begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.payercmt != null" >
+        payerCmt = #{record.payercmt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellercmt != null" >
+        sellerCmt = #{record.sellercmt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.star != null" >
+        star = #{record.star,jdbcType=INTEGER},
+      </if>
+      <if test="record.other != null" >
+        other = #{record.other,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_bytheway
+    set id = #{record.id,jdbcType=INTEGER},
+      deliver = #{record.deliver,jdbcType=VARCHAR},
+      orderid = #{record.orderid,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      overtime = #{record.overtime,jdbcType=TIMESTAMP},
+      begintime = #{record.begintime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      payerCmt = #{record.payercmt,jdbcType=VARCHAR},
+      sellerCmt = #{record.sellercmt,jdbcType=VARCHAR},
+      star = #{record.star,jdbcType=INTEGER},
+      other = #{record.other,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcf.pojo.TbBytheway" >
+    update tb_bytheway
+    <set >
+      <if test="deliver != null" >
+        deliver = #{deliver,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="overtime != null" >
+        overtime = #{overtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="begintime != null" >
+        begintime = #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="payercmt != null" >
+        payerCmt = #{payercmt,jdbcType=VARCHAR},
+      </if>
+      <if test="sellercmt != null" >
+        sellerCmt = #{sellercmt,jdbcType=VARCHAR},
+      </if>
+      <if test="star != null" >
+        star = #{star,jdbcType=INTEGER},
+      </if>
+      <if test="other != null" >
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcf.pojo.TbBytheway" >
+    update tb_bytheway
+    set deliver = #{deliver,jdbcType=VARCHAR},
+      orderid = #{orderid,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      overtime = #{overtime,jdbcType=TIMESTAMP},
+      begintime = #{begintime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      payerCmt = #{payercmt,jdbcType=VARCHAR},
+      sellerCmt = #{sellercmt,jdbcType=VARCHAR},
+      star = #{star,jdbcType=INTEGER},
+      other = #{other,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

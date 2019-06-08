@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcf.mapper.VPostMapper" >
+  <resultMap id="BaseResultMap" type="com.hcf.pojo.VPost" >
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="userLevel" property="userlevel" jdbcType="INTEGER" />
+    <result column="userStatus" property="userstatus" jdbcType="INTEGER" />
+    <result column="userPhotoD" property="userphotod" jdbcType="VARCHAR" />
+    <result column="postthumb" property="postthumb" jdbcType="INTEGER" />
+    <result column="postScan" property="postscan" jdbcType="INTEGER" />
+    <result column="postStatus" property="poststatus" jdbcType="INTEGER" />
+    <result column="postTime" property="posttime" jdbcType="TIMESTAMP" />
+    <result column="postPic" property="postpic" jdbcType="VARCHAR" />
+    <result column="postType" property="posttype" jdbcType="VARCHAR" />
+    <result column="postContext" property="postcontext" jdbcType="VARCHAR" />
+    <result column="postTitle" property="posttitle" jdbcType="VARCHAR" />
+    <result column="postUser" property="postuser" jdbcType="VARCHAR" />
+    <result column="postId" property="postid" jdbcType="INTEGER" />
+    <result column="userPower" property="userpower" jdbcType="INTEGER" />
+    <result column="usernameD" property="usernamed" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userName, userLevel, userStatus, userPhotoD, postthumb, postScan, postStatus, postTime, 
+    postPic, postType, postContext, postTitle, postUser, postId, userPower, usernameD
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hcf.pojo.VPostExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from v_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.hcf.pojo.VPostExample" >
+    delete from v_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hcf.pojo.VPost" >
+    insert into v_post (userName, userLevel, userStatus, 
+      userPhotoD, postthumb, postScan, 
+      postStatus, postTime, postPic, 
+      postType, postContext, postTitle, 
+      postUser, postId, userPower, 
+      usernameD)
+    values (#{username,jdbcType=VARCHAR}, #{userlevel,jdbcType=INTEGER}, #{userstatus,jdbcType=INTEGER}, 
+      #{userphotod,jdbcType=VARCHAR}, #{postthumb,jdbcType=INTEGER}, #{postscan,jdbcType=INTEGER}, 
+      #{poststatus,jdbcType=INTEGER}, #{posttime,jdbcType=TIMESTAMP}, #{postpic,jdbcType=VARCHAR}, 
+      #{posttype,jdbcType=VARCHAR}, #{postcontext,jdbcType=VARCHAR}, #{posttitle,jdbcType=VARCHAR}, 
+      #{postuser,jdbcType=VARCHAR}, #{postid,jdbcType=INTEGER}, #{userpower,jdbcType=INTEGER}, 
+      #{usernamed,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcf.pojo.VPost" >
+    insert into v_post
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="userlevel != null" >
+        userLevel,
+      </if>
+      <if test="userstatus != null" >
+        userStatus,
+      </if>
+      <if test="userphotod != null" >
+        userPhotoD,
+      </if>
+      <if test="postthumb != null" >
+        postthumb,
+      </if>
+      <if test="postscan != null" >
+        postScan,
+      </if>
+      <if test="poststatus != null" >
+        postStatus,
+      </if>
+      <if test="posttime != null" >
+        postTime,
+      </if>
+      <if test="postpic != null" >
+        postPic,
+      </if>
+      <if test="posttype != null" >
+        postType,
+      </if>
+      <if test="postcontext != null" >
+        postContext,
+      </if>
+      <if test="posttitle != null" >
+        postTitle,
+      </if>
+      <if test="postuser != null" >
+        postUser,
+      </if>
+      <if test="postid != null" >
+        postId,
+      </if>
+      <if test="userpower != null" >
+        userPower,
+      </if>
+      <if test="usernamed != null" >
+        usernameD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userlevel != null" >
+        #{userlevel,jdbcType=INTEGER},
+      </if>
+      <if test="userstatus != null" >
+        #{userstatus,jdbcType=INTEGER},
+      </if>
+      <if test="userphotod != null" >
+        #{userphotod,jdbcType=VARCHAR},
+      </if>
+      <if test="postthumb != null" >
+        #{postthumb,jdbcType=INTEGER},
+      </if>
+      <if test="postscan != null" >
+        #{postscan,jdbcType=INTEGER},
+      </if>
+      <if test="poststatus != null" >
+        #{poststatus,jdbcType=INTEGER},
+      </if>
+      <if test="posttime != null" >
+        #{posttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postpic != null" >
+        #{postpic,jdbcType=VARCHAR},
+      </if>
+      <if test="posttype != null" >
+        #{posttype,jdbcType=VARCHAR},
+      </if>
+      <if test="postcontext != null" >
+        #{postcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="posttitle != null" >
+        #{posttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="postuser != null" >
+        #{postuser,jdbcType=VARCHAR},
+      </if>
+      <if test="postid != null" >
+        #{postid,jdbcType=INTEGER},
+      </if>
+      <if test="userpower != null" >
+        #{userpower,jdbcType=INTEGER},
+      </if>
+      <if test="usernamed != null" >
+        #{usernamed,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hcf.pojo.VPostExample" resultType="java.lang.Integer" >
+    select count(*) from v_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update v_post
+    <set >
+      <if test="record.username != null" >
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userlevel != null" >
+        userLevel = #{record.userlevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.userstatus != null" >
+        userStatus = #{record.userstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.userphotod != null" >
+        userPhotoD = #{record.userphotod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postthumb != null" >
+        postthumb = #{record.postthumb,jdbcType=INTEGER},
+      </if>
+      <if test="record.postscan != null" >
+        postScan = #{record.postscan,jdbcType=INTEGER},
+      </if>
+      <if test="record.poststatus != null" >
+        postStatus = #{record.poststatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.posttime != null" >
+        postTime = #{record.posttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.postpic != null" >
+        postPic = #{record.postpic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posttype != null" >
+        postType = #{record.posttype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcontext != null" >
+        postContext = #{record.postcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posttitle != null" >
+        postTitle = #{record.posttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postuser != null" >
+        postUser = #{record.postuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postid != null" >
+        postId = #{record.postid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userpower != null" >
+        userPower = #{record.userpower,jdbcType=INTEGER},
+      </if>
+      <if test="record.usernamed != null" >
+        usernameD = #{record.usernamed,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update v_post
+    set userName = #{record.username,jdbcType=VARCHAR},
+      userLevel = #{record.userlevel,jdbcType=INTEGER},
+      userStatus = #{record.userstatus,jdbcType=INTEGER},
+      userPhotoD = #{record.userphotod,jdbcType=VARCHAR},
+      postthumb = #{record.postthumb,jdbcType=INTEGER},
+      postScan = #{record.postscan,jdbcType=INTEGER},
+      postStatus = #{record.poststatus,jdbcType=INTEGER},
+      postTime = #{record.posttime,jdbcType=TIMESTAMP},
+      postPic = #{record.postpic,jdbcType=VARCHAR},
+      postType = #{record.posttype,jdbcType=VARCHAR},
+      postContext = #{record.postcontext,jdbcType=VARCHAR},
+      postTitle = #{record.posttitle,jdbcType=VARCHAR},
+      postUser = #{record.postuser,jdbcType=VARCHAR},
+      postId = #{record.postid,jdbcType=INTEGER},
+      userPower = #{record.userpower,jdbcType=INTEGER},
+      usernameD = #{record.usernamed,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

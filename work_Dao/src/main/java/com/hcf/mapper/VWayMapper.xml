@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcf.mapper.VWayMapper" >
+  <resultMap id="BaseResultMap" type="com.hcf.pojo.VWay" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="deliver" property="deliver" jdbcType="VARCHAR" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="overtime" property="overtime" jdbcType="TIMESTAMP" />
+    <result column="begintime" property="begintime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="payerCmt" property="payercmt" jdbcType="VARCHAR" />
+    <result column="sellerCmt" property="sellercmt" jdbcType="VARCHAR" />
+    <result column="star" property="star" jdbcType="INTEGER" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+    <result column="orderSAddress" property="ordersaddress" jdbcType="VARCHAR" />
+    <result column="orderPAddress" property="orderpaddress" jdbcType="VARCHAR" />
+    <result column="orderOther" property="orderother" jdbcType="VARCHAR" />
+    <result column="orderBeginTime" property="orderbegintime" jdbcType="DATE" />
+    <result column="orderOverTime" property="orderovertime" jdbcType="DATE" />
+    <result column="storeAddress" property="storeaddress" jdbcType="VARCHAR" />
+    <result column="storePhone" property="storephone" jdbcType="VARCHAR" />
+    <result column="storeName" property="storename" jdbcType="VARCHAR" />
+    <result column="storetype" property="storetype" jdbcType="INTEGER" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="orderPayer" property="orderpayer" jdbcType="VARCHAR" />
+    <result column="orderSeller" property="orderseller" jdbcType="VARCHAR" />
+    <result column="userPhone" property="userphone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, deliver, orderid, price, overtime, begintime, status, payerCmt, sellerCmt, star, 
+    other, orderSAddress, orderPAddress, orderOther, orderBeginTime, orderOverTime, storeAddress, 
+    storePhone, storeName, storetype, userName, orderPayer, orderSeller, userPhone
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hcf.pojo.VWayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from v_way
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.hcf.pojo.VWayExample" >
+    delete from v_way
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hcf.pojo.VWay" >
+    insert into v_way (id, deliver, orderid, 
+      price, overtime, begintime, 
+      status, payerCmt, sellerCmt, 
+      star, other, orderSAddress, 
+      orderPAddress, orderOther, orderBeginTime, 
+      orderOverTime, storeAddress, storePhone, 
+      storeName, storetype, userName, 
+      orderPayer, orderSeller, userPhone
+      )
+    values (#{id,jdbcType=INTEGER}, #{deliver,jdbcType=VARCHAR}, #{orderid,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{overtime,jdbcType=TIMESTAMP}, #{begintime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{payercmt,jdbcType=VARCHAR}, #{sellercmt,jdbcType=VARCHAR}, 
+      #{star,jdbcType=INTEGER}, #{other,jdbcType=VARCHAR}, #{ordersaddress,jdbcType=VARCHAR}, 
+      #{orderpaddress,jdbcType=VARCHAR}, #{orderother,jdbcType=VARCHAR}, #{orderbegintime,jdbcType=DATE}, 
+      #{orderovertime,jdbcType=DATE}, #{storeaddress,jdbcType=VARCHAR}, #{storephone,jdbcType=VARCHAR}, 
+      #{storename,jdbcType=VARCHAR}, #{storetype,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{orderpayer,jdbcType=VARCHAR}, #{orderseller,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcf.pojo.VWay" >
+    insert into v_way
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deliver != null" >
+        deliver,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="overtime != null" >
+        overtime,
+      </if>
+      <if test="begintime != null" >
+        begintime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="payercmt != null" >
+        payerCmt,
+      </if>
+      <if test="sellercmt != null" >
+        sellerCmt,
+      </if>
+      <if test="star != null" >
+        star,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+      <if test="ordersaddress != null" >
+        orderSAddress,
+      </if>
+      <if test="orderpaddress != null" >
+        orderPAddress,
+      </if>
+      <if test="orderother != null" >
+        orderOther,
+      </if>
+      <if test="orderbegintime != null" >
+        orderBeginTime,
+      </if>
+      <if test="orderovertime != null" >
+        orderOverTime,
+      </if>
+      <if test="storeaddress != null" >
+        storeAddress,
+      </if>
+      <if test="storephone != null" >
+        storePhone,
+      </if>
+      <if test="storename != null" >
+        storeName,
+      </if>
+      <if test="storetype != null" >
+        storetype,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="orderpayer != null" >
+        orderPayer,
+      </if>
+      <if test="orderseller != null" >
+        orderSeller,
+      </if>
+      <if test="userphone != null" >
+        userPhone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deliver != null" >
+        #{deliver,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="overtime != null" >
+        #{overtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="payercmt != null" >
+        #{payercmt,jdbcType=VARCHAR},
+      </if>
+      <if test="sellercmt != null" >
+        #{sellercmt,jdbcType=VARCHAR},
+      </if>
+      <if test="star != null" >
+        #{star,jdbcType=INTEGER},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="ordersaddress != null" >
+        #{ordersaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderpaddress != null" >
+        #{orderpaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderother != null" >
+        #{orderother,jdbcType=VARCHAR},
+      </if>
+      <if test="orderbegintime != null" >
+        #{orderbegintime,jdbcType=DATE},
+      </if>
+      <if test="orderovertime != null" >
+        #{orderovertime,jdbcType=DATE},
+      </if>
+      <if test="storeaddress != null" >
+        #{storeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storephone != null" >
+        #{storephone,jdbcType=VARCHAR},
+      </if>
+      <if test="storename != null" >
+        #{storename,jdbcType=VARCHAR},
+      </if>
+      <if test="storetype != null" >
+        #{storetype,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="orderpayer != null" >
+        #{orderpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="orderseller != null" >
+        #{orderseller,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        #{userphone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hcf.pojo.VWayExample" resultType="java.lang.Integer" >
+    select count(*) from v_way
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update v_way
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.deliver != null" >
+        deliver = #{record.deliver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.overtime != null" >
+        overtime = #{record.overtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.begintime != null" >
+        begintime = #{record.begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.payercmt != null" >
+        payerCmt = #{record.payercmt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellercmt != null" >
+        sellerCmt = #{record.sellercmt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.star != null" >
+        star = #{record.star,jdbcType=INTEGER},
+      </if>
+      <if test="record.other != null" >
+        other = #{record.other,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordersaddress != null" >
+        orderSAddress = #{record.ordersaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderpaddress != null" >
+        orderPAddress = #{record.orderpaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderother != null" >
+        orderOther = #{record.orderother,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderbegintime != null" >
+        orderBeginTime = #{record.orderbegintime,jdbcType=DATE},
+      </if>
+      <if test="record.orderovertime != null" >
+        orderOverTime = #{record.orderovertime,jdbcType=DATE},
+      </if>
+      <if test="record.storeaddress != null" >
+        storeAddress = #{record.storeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storephone != null" >
+        storePhone = #{record.storephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storename != null" >
+        storeName = #{record.storename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storetype != null" >
+        storetype = #{record.storetype,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderpayer != null" >
+        orderPayer = #{record.orderpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderseller != null" >
+        orderSeller = #{record.orderseller,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userphone != null" >
+        userPhone = #{record.userphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update v_way
+    set id = #{record.id,jdbcType=INTEGER},
+      deliver = #{record.deliver,jdbcType=VARCHAR},
+      orderid = #{record.orderid,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      overtime = #{record.overtime,jdbcType=TIMESTAMP},
+      begintime = #{record.begintime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      payerCmt = #{record.payercmt,jdbcType=VARCHAR},
+      sellerCmt = #{record.sellercmt,jdbcType=VARCHAR},
+      star = #{record.star,jdbcType=INTEGER},
+      other = #{record.other,jdbcType=VARCHAR},
+      orderSAddress = #{record.ordersaddress,jdbcType=VARCHAR},
+      orderPAddress = #{record.orderpaddress,jdbcType=VARCHAR},
+      orderOther = #{record.orderother,jdbcType=VARCHAR},
+      orderBeginTime = #{record.orderbegintime,jdbcType=DATE},
+      orderOverTime = #{record.orderovertime,jdbcType=DATE},
+      storeAddress = #{record.storeaddress,jdbcType=VARCHAR},
+      storePhone = #{record.storephone,jdbcType=VARCHAR},
+      storeName = #{record.storename,jdbcType=VARCHAR},
+      storetype = #{record.storetype,jdbcType=INTEGER},
+      userName = #{record.username,jdbcType=VARCHAR},
+      orderPayer = #{record.orderpayer,jdbcType=VARCHAR},
+      orderSeller = #{record.orderseller,jdbcType=VARCHAR},
+      userPhone = #{record.userphone,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
